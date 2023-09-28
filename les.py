@@ -18,4 +18,4 @@ if D<0 or c!=0:
 if D>0:
     print((-b+D**(1/2))/2*a)
     print((-b-D**(1/2))/2*a)
-jhjh
+jhjh5434
