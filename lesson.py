@@ -20,3 +20,4 @@ x = 0
 for i in range(len(sp)):
     x += int(sp[i])
 print('Сумма элементов списка ', x)
+
