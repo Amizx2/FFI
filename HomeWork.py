@@ -25,3 +25,5 @@ for i in range(1, 10):
     for j in range(1, 10):
         print(i * j, end='\t')
     print()
+#Мой github https://github.com/Amizx2
+#В прошлом задании вы не засчитали мне дополнительное задание, оно также вложено как и это, оба задания есть в моем репозитории на гите, файл HomeWorkPlus
