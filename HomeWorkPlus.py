@@ -33,3 +33,18 @@ print('Result: ', result_num)
 #small варинат
 num = input('Enter a number: ')
 print(''.join(str(int(x) ** 2) for x in num))
+
+#Доп.задание 3: The goal of this exercise is to convert a string to a new string where each character in the new string is "(" if that character appears only once in the original string, or ")" if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+
+def GenerateWords(word):
+    word = word.lower()
+    result = ''
+    for sym in word:
+        if word.count(sym) > 1:
+            result += ')'
+        else:
+            result += '('
+    return result
+OrigWord = (input('Введите строку: '))
+
+#Доп. задание 4 не понимаю как делать на Coffee script
