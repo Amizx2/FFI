@@ -1,11 +1,19 @@
-#We have an array of unique elements. A special kind of permutation is the one that has all of its elements in a different position than the original. Let's see how many of these permutations may be generated from an array of four elements. We put the original array with square brackets and the wanted permutations with parentheses.  A total of 9 permutations with all their elements in different positions than arr The task for this kata would be to create a code to count all these permutations for an array of certain length. Features of the random tests: l = length of the array 10 ≤ l ≤ 5000 See the example tests. Enjoy it!
-from math import factorial
+def format_large_number(number):
+    if number == 0:
+        return '0'
 
-def count(arr):
-    total_permutations = factorial(len(arr))
-    special_permutations = total_permutations // 2
+    abbreviations = [
+        (1e30, 'dr'),
+        (1e27, 'aa'), (1e24, 'ad'), (1e21, 'ac'),
+        (1e18, 'ab'), (1e15, 'aa'), (1e12, 'T'),
+        (1e9, 'B'), (1e6, 'M'), (1e3, 'K'),
+    ]
 
-    return special_permutations
-arr = [1, 2, 3, 4]
-result = count(arr)
-print(result)
+    for value, notation in abbreviations:
+        if abs(number) >= value:
+            result = round(number / value, 2)
+            return f'{int(result) if result.is_integer() else result}{notation}'
+
+    return '0'
+num = float(input(''))
+print(format_large_number(num))
