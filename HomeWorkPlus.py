@@ -1,19 +1,18 @@
-def format_large_number(number):
-    if number == 0:
-        return '0'
+def solver(arr, n, q):
+    if len(arr) < n or max(arr) > q:
+        return tuple()
+    sorted_arr = sorted(arr)
 
-    abbreviations = [
-        (1e30, 'dr'),
-        (1e27, 'aa'), (1e24, 'ad'), (1e21, 'ac'),
-        (1e18, 'ab'), (1e15, 'aa'), (1e12, 'T'),
-        (1e9, 'B'), (1e6, 'M'), (1e3, 'K'),
-    ]
+    result = [0] * len(arr)
+    for i in range(n):
+        for j in range(i, len(result), n):
+            result[j] = sorted_arr.pop(0)
 
-    for value, notation in abbreviations:
-        if abs(number) >= value:
-            result = round(number / value, 2)
-            return f'{int(result) if result.is_integer() else result}{notation}'
+    return tuple(result)
 
-    return '0'
-num = float(input(''))
-print(format_large_number(num))
+arr = (3, 5, 7, 1, 6, 8, 2, 4)
+n = 3
+q = 13
+
+solution = solver(arr, n, q)
+print(solution)

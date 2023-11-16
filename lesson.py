@@ -1,47 +1,19 @@
-# 1 Дан двумерный массив размером 3x3. Определить максимальное значение среди элементов третьего столбца массива; максимальное значение среди элементов второй строки массива. Вывести полученные значения.
-import random
+import os
 
-n = 3
-arr = []
+#1 Напишите функцию read_last(lines, file), которая будет открывать определенный файл file и выводить на печать построчно последние строки в количестве lines (на всякий случай проверим, что задано положительное целое число). Протестируем функцию на файле article.txt со следующим содержимым:
 
-for i in range(n):
-    row = [random.randint(-9, 9) for _ in range(n)]
-    arr.append(row)
+n = int(input('Введите колличество строк: '))
+if n <= 0:
+    print('Количество строк должно быть положительным целым числом.')
+def read_last(lines, file):
+    with open(file, "r", encoding='utf-8') as f:
+        all_lines = f.readlines()
+        num_lines = min(lines, len(all_lines))
+        for line in all_lines[-num_lines:]:
+            print(line, end='')
 
-for i in range(n):
-    for j in range(n):
-        print(arr[i][j], end=' ')
-    print()
-max_column = max(arr[0][2], arr[1][2], arr[2][2])
-max_row = max(arr[1][0], arr[1][1], arr[1][2])
-print('')
-print(max_column)
-print('')
-print(max_row)
-# 2 Дан двумерный массив размером mxn. Сформировать новый массив заменив положительные элементы единицами, а отрицательные нулями. Вывести оба массива.
-matrix = [
-    [1, -2, 3],
-    [-4, 5, -6]
-]
+read_last(n, "D:/article.txt")
 
-new_matrix = []
-
-for i in range(len(matrix)):
-    new_row = []
-    for j in range(len(matrix[0])):
-        if matrix[i][j] > 0:
-            new_row.append(1)
-        else:
-            new_row.append(0)
-    new_matrix.append(new_row)
-
-print("Исходная матрица:")
-for row in matrix:
-    print(row)
-
-print("Новая матрица:")
-for row in new_matrix:
-    print(row)
-
+#2 Выберите любую папку на своем компьютере, имеющую вложенные директории. Выведите на печать в терминал ее содержимое, как и всех подкаталогов при помощи функции print_docs(directory).
 
 
