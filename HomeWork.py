@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 
-#Список
+#Список/
 list_data = [10, 20, 30, 40, 50]
 series_from_list = pd.Series(list_data)
 print('Серия из списка:')
