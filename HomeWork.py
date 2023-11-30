@@ -1,79 +1,98 @@
-#1. Создать объект pandas Series из листа, объекта NumPy, и словаря
+#1 Write a function called proportion_of_education which returns the proportion of children in the dataset who had a mother with the education levels equal to less than high school (<12), high school (12), more than high school but not a college graduate (>12) and college degree.  This function should return a dictionary in the form of (use the correct numbers, do not round numbers): {"less than high school":0.2, "high school":0.4, "more than high school but not college":0.2, "college":0.2} def proportion_of_education(): # your code goes here # YOUR CODE HERE raise NotImplementedError()
+
 import pandas as pd
+
+data = {
+    'education': ['high school', 'college', 'less than high school', 'college',
+                  'more than high school but not college'],
+}
+
+df = pd.DataFrame(data)
+
+
+def proportion_of_education():
+    education_counts = df['education'].value_counts(normalize=True)
+
+    result = {
+        "less than high school": education_counts.get("less than high school", 0),
+        "high school": education_counts.get("high school", 0),
+        "more than high school but not college": education_counts.get("more than high school but not college", 0),
+        "college": education_counts.get("college", 0),
+    }
+
+    return result
+
+
+result = proportion_of_education()
+print(result)
+
+#2Let's explore the relationship between being fed breastmilk as a child and getting a seasonal influenza vaccine from a healthcare provider. Return a tuple of the average number of influenza vaccines for those children we know received breastmilk as a child and those who know did not. This function should return a tuple in the form (use the correct numbers: (2.5, 0.1)def average_influenza_doses(): # YOUR CODE HERE raise NotImplementedError() assert len(average_influenza_doses())==2, "Return two values in a tuple, the first for yes and the second for no."
+
+import pandas as pd
+
+data = {
+    'breastfed': [1, 0, 1, 1, 0, 0, 1, 0],
+    'influenza_doses': [3, 1, 2, 4, 0, 0, 2, 0]
+}
+
+df = pd.DataFrame(data)
+
+
+def average_influenza_doses():
+    breastfed_group = df[df['breastfed'] == 1]
+    no_breastfed_group = df[df['breastfed'] == 0]
+
+    avg_breastfed = breastfed_group['influenza_doses'].mean()
+    avg_no_breastfed = no_breastfed_group['influenza_doses'].mean()
+
+    return avg_breastfed, avg_no_breastfed
+
+
+result = average_influenza_doses()
+print(result)
+
+#3 It would be interesting to see if there is any evidence of a link between vaccine effectiveness and sex of the child. Calculate the ratio of the number of children who contracted chickenpox but were vaccinated against it (at least one varicella dose) versus those who were vaccinated but did not contract chicken pox. Return results by sex.xThis function should return a dictionary in the form of (use the correct numbers): {"male":0.2,"female":0.4} Note: To aid in verification, the chickenpox_by_sex()['female'] value the autograder is looking for starts with the digits 0.0077.
+import pandas as pd
+
+data = {
+    'sex': ['male', 'male', 'female', 'female', 'male', 'female', 'male', 'female'],
+    'had_chickenpox': [1, 0, 1, 1, 1, 0, 0, 1],
+    'vaccinated': [1, 1, 1, 1, 0, 1, 1, 1]
+}
+
+df = pd.DataFrame(data)
+
+
+def chickenpox_by_sex():
+    # Фильтр
+    vaccinated = df[(df['vaccinated'] == 1) & (df['had_chickenpox'] == 1)]
+    vaccinated_no = df[(df['vaccinated'] == 1) & (df['had_chickenpox'] == 0)]
+
+    ratio_male = vaccinated[vaccinated['sex'] == 'male'].shape[0] / \
+                 vaccinated_no[vaccinated_no['sex'] == 'male'].shape[0]
+    ratio_female = vaccinated[vaccinated['sex'] == 'female'].shape[0] / \
+                   vaccinated_no[vaccinated_no['sex'] == 'female'].shape[0]
+
+    return {"male": ratio_male, "female": ratio_female}
+
+
+result = chickenpox_by_sex()
+print(result)
+
+#4
+
+import scipy.stats as stats
 import numpy as np
-
-#Список/
-list_data = [10, 20, 30, 40, 50]
-series_from_list = pd.Series(list_data)
-print('Серия из списка:')
-print(series_from_list)
-
-#Массив NumPy
-numpy_array = np.array([10, 20, 30, 40, 50])
-series_from_numpy = pd.Series(numpy_array)
-print('\nСерия из массива NumPy:')
-print(series_from_numpy)
-
-#Словарь
-dict_data = {'a': 10, 'b': 20, 'c': 30, 'd': 40, 'e': 50}
-series_from_dict = pd.Series(dict_data)
-print('\nСерия из словаря:')
-print(series_from_dict)
-#2. Получить не пересекающиеся элементы в двух объектах Series
 import pandas as pd
 
-series1 = pd.Series([1, 2, 3, 4, 5])
-series2 = pd.Series([4, 5, 6, 7, 8])
 
-elements = series1.index.symmetric_difference(series2.index)
+def corr_chickenpox():
+    df = pd.read_csv("D:/data.csv")
 
-print("Не пересекающиеся элементы:")
-print(series1[elements])
-print(series2[elements])
-#3. Узнать частоту уникальных элементов объекта Series (гистограмма)
+    corr, pval = stats.pearsonr(df["had_chickenpox_column"], df["num_chickenpox_vaccine_column"])
 
-import pandas as pd
+    return corr
 
-# Создание Series
-series = pd.Series([1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5])
-
-# Получение частоты уникальных элементов (гистограмма)
-histogram = series.value_counts()
-
-# Вывод результатов
-print("Гистограмма частоты уникальных элементов:")
-print(histogram )
-
-#4. Объединить два объекта Series вертикально и горизонтально
-import pandas as pd
-
-series1 = pd.Series([1, 2, 3], name='Series1')
-series2 = pd.Series([4, 5, 6], name='Series2')
-
-# Вертикальное объединение
-result_vertical = pd.concat([series1, series2], axis=0)
-
-print("Вертикальное объединение:")
-print(result_vertical)
-
-# Горизонтальное объединение
-result_horizontal = pd.concat([series1, series2], axis=1)
-
-print("Горизонтальное объединение:")
-print(result_horizontal)
-
-#5 Найти разность между объектом Series и смещением объекта Series на n
-import pandas as pd
-
-# Создаем объект Series
-data = pd.Series([1, 3, 6, 10, 15])
-
-# Вычисляем разность между элементами и их смещением на 1 позицию
-difference = data.diff(1)
-
-print("Объект Series:")
-print(data)
-
-print("\nРазность смещения на 1 позицию:")
-print(difference)
+result = corr_chickenpox()
+print(result)
 
