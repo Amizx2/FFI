@@ -1,3 +1,4 @@
+#Написать программу редактор текстовых файлов с графическим интерфейсом. Обязательно: Кнопка сохранить, кнопка выхода. Необязательно, но приветствуется: возможность открытия файла и отображения текста в окне, изменение цвета и размера текста, упаковка программы, изменение цвета кнопок принаведении мыши и др.
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QFileDialog, QWidget
 from PyQt5.QtGui import QColor
@@ -34,7 +35,7 @@ class TextEditor(QMainWindow):
         self.open_button.clicked.connect(self.open_file)
         self.color_button.clicked.connect(self.change_text_color)
 
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(0, 0, 800, 600)
         self.setWindowTitle('Текстовый редактор')
 
     def save_text(self):
